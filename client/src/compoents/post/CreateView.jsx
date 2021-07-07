@@ -1,7 +1,7 @@
 import { Box , makeStyles ,FormControl,InputBase,Button,TextareaAutosize} from "@material-ui/core";
 import {AddCircle} from '@material-ui/icons';
 import { useState } from "react";
-import { createPost } from "../../service/app";
+import { createPost } from "../../service/api";
 
 const useStyles = makeStyles((theme) => ({
     image:{
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 const initialValues = {
     title: '',
-    decription: '',
+    description: '',
     picture: '',
     username: '',
     categories: 'All',
@@ -70,11 +70,12 @@ const CreateView = () =>{
                 <Button onClick={()=> savePost()} variant>Publish</Button>
                 </FormControl>
 
-                <TextareaAutosize 
-                minRows={5} 
-                placeholder='Tell your story...'
-                className={classes.textarea}
-                name='description'
+                <TextareaAutosize
+                    onChange={(e)=>handleChange(e)}
+                    minRows={5}
+                    placeholder='Tell your story...'
+                    className={classes.textarea}
+                    name='description'
                 />
             
         </Box>
