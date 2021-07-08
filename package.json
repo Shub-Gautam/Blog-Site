@@ -15,6 +15,9 @@
     "start": "npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shub-Gautam/Blog-Site.git"
