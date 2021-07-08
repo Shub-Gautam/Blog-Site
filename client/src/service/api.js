@@ -1,11 +1,11 @@
 import axios from 'axios';
-import URL8000 from '../Constants/data';
 
 
-const URL = URL8000;
+
+const URL = `http://localhost:8000 `|| process.env.PORT ;
 
 export  const createPost = async (post)=>{
-    try{ return await axios.post( ''+URL8000+'/create',post )}
+    try{ return await axios.post( ''+URL+'/create',post )}
     catch(error){
         console.log('Error while calling createPost API',error);
     }
