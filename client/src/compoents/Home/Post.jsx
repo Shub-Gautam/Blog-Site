@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     image:{
         height:150,
         width:'100%',
-        //so that the image does't strect
+        //so that the image doesn't strect
         objectFit:'cover',
         borderRadius:'10px 19px 0 0'
     },
@@ -36,16 +36,16 @@ const useStyles = makeStyles({
 })
 
 
-const Post = () => {
+const Post = ({ post }) => {
     const classes = useStyles();
-    const url = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=752&q=80'
+    const url = post.picture || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=752&q=80'
     return (
         <Box className={classes.container}>
             <img src={url} alt="wrapper" className={classes.image}/>
-            <Typography className={classes.text}>Technology</Typography>
-            <Typography className={classes.heading}>Blue shade</Typography>
-            <Typography className={classes.text}>Author: Shubham Gautam</Typography>
-            <Typography className={classes.detail}>Hi from Shubham Gautam</Typography>
+            <Typography className={classes.text}>{post.categories}</Typography>
+            <Typography className={classes.heading}>{post.title}</Typography>
+            <Typography className={classes.text}>Author: {post.username}</Typography>
+            <Typography className={classes.detail}>{post.description}</Typography>
         </Box>
     )
 }
