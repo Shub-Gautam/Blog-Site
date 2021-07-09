@@ -1,4 +1,5 @@
 import Post from "../schema/post-schema.js";
+import {request, response} from "express";
 // import {response} from "express";
 
 
@@ -22,11 +23,36 @@ export const getAllPosts = async (req,res)=>{
     }
 }
 
-export const getPost = async (req,res)=>{
-    try{
-        let post = Post.findById(req.param.id);
-        res.status(200).json(post);
-    }catch(e){
-        res.status(500).json(e);
+export const getPost = async (request, response) => {
+    try {
+        const post = await Post.findById(request.params.id);
+
+        response.status(200).json(post);
+    } catch (error) {
+        response.status(500).json(error)
+    }
+}
+
+export const updatePost = async (request, response) => {
+    try {
+        const post = await Post.findById(request.params.id);
+
+        await Post.findByIdAndUpdate( request.params.id, { $set: request.body })
+
+        response.status(200).json('post updated successfully');
+    } catch (error) {
+        response.status(500).json(error);
+    }
+}
+
+export const deletePost = async (request, response) => {
+    try {
+        const post = await Post.findById(request.params.id);
+
+        await post.delete()
+
+        response.status(200).json('post deleted successfully');
+    } catch (error) {
+        response.status(500).json(error)
     }
 }

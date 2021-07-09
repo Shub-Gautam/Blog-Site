@@ -2,6 +2,7 @@ import { Box , makeStyles ,FormControl,InputBase,Button,TextareaAutosize} from "
 import {AddCircle} from '@material-ui/icons';
 import { useState } from "react";
 import { createPost } from "../../service/api";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     image:{
@@ -48,6 +49,7 @@ const initialValues = {
 }
 
 const CreateView = () =>{
+    const history = useHistory();
     const classes = useStyles();
     const url = 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80'
     
@@ -59,6 +61,7 @@ const CreateView = () =>{
 
     const savePost = async ()=>{
        await createPost(post);
+       history.push('/');
     }
 
     return (

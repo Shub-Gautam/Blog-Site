@@ -1,9 +1,10 @@
 
-import { Box,makeStyles , Typography} from "@material-ui/core";
+import { Box,makeStyles , Typography, Grid } from "@material-ui/core";
 import {Edit,Delete} from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import {useState,useEffect} from "react";
-import {getPost} from "../../service/api";
+import {getPost, updatePost , deletePost } from "../../service/api";
+import {useHistory} from "react-router-dom";
 //import { border } from "@material-ui/system";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,42 +45,48 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const DetailView = ({match}) =>{
+const DetailView = ({ match }) => {
+    const history = useHistory();
     const classes = useStyles();
-    const url = 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80'
+    const url = 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
 
 
-    //Because single object thats why we pass {} below if it going to get array then we pass []
-    const [post,setPost] = useState({});
+    const [posts, setPost] = useState({});
 
-    useEffect(()=>{
-        const fetchData = async ()=>{
-            let data = await getPost(match.param.id);
+    useEffect(() => {
+        const fetchData = async () => {
+            let data = await getPost(match.params.id);
             console.log(data);
             setPost(data);
         }
         fetchData();
-    },[]);
+    }, []);
 
-
+    const deleteBlog = async () =>{
+        await deletePost(posts._id);
+        history.push('/');
+    }
     return (
         <Box className={classes.container}>
-            <img src={post.picture || url} alt='Banner' className={classes.image}/>
+            <img src={posts.picture||url} alt='Banner' className={classes.image}/>
             <Box className={classes.icons}>
-                <Link to={'/update'} style={{textDecoration:'none', color:'inherit'}}><Edit className={classes.icon} color='primary'/></Link>
-                <Delete className={classes.icon} color='error'/>
+                <Link to={`/update/${posts._id}`} style={{textDecoration:'none', color:'inherit'}}><Edit className={classes.icon} color='primary'/></Link>
+                <Delete onClick={()=>deleteBlog()} className={classes.icon} color='error'/>
             </Box>
 
-            <Typography className={classes.heading}>{post.title}</Typography>
+            <Typography className={classes.heading}>{posts.title}</Typography>
 
             <Box className={classes.subheading}>
-                <Typography>Author:<span style={{fontWeight:'bold'}}>{post.username}</span></Typography>
-                <Typography style={{marginLeft:'auto'}}>{post.createDate}</Typography>
+                <Typography>Author:<span style={{fontWeight:'bold'}}>{posts.username}</span></Typography>
+                <Typography style={{marginLeft:'auto'}}>{new Date (posts.createDate).toDateString()}</Typography>
             </Box>
 
-            <Typography>{post.description}</Typography>
+            <Typography>{posts.description}</Typography>
         </Box>
     )
 }
+
+
+
 
 export default DetailView; 

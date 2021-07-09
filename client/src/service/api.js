@@ -2,10 +2,10 @@ import axios from 'axios';
 
 
 
-const URL = `http://localhost:8000 `|| process.env.PORT ;
+const URL = 'http://localhost:8000';
 
 export  const createPost = async (post)=>{
-    try{ return await axios.post( ''+URL+'/create',post )}
+    try{ return await axios.post( `${URL}/create`,post);}
     catch(error){
         console.log('Error while calling createPost API',error);
     }
@@ -22,9 +22,25 @@ export const getAllPosts = async ()=>{
 
 export const getPost = async (id)=>{
     try {
-        let res = await axios.get(`${URL}/post/${id}`);
-        return res.data;
+        let response = await axios.get(`${URL}/post/${id}`);
+        return response.data;
     }catch (e){
         console.log("Error while calling getPost API",e);
+    }
+}
+
+export const updatePost = async (id, post) => {
+    try {
+         return await axios.post(`${URL}/update/${id}`,post);
+    } catch(error) {
+        console.log('Error while calling updatePost API ', error)
+    }
+}
+
+export const deletePost = async (id) => {
+    try{
+        return await axios.delete(`${URL}/delete/${id}`);
+    }catch (error) {
+        console.log("Error while calling deletePost API",error);
     }
 }
