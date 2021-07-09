@@ -2,7 +2,6 @@ import Post from "../schema/post-schema.js";
 import {request, response} from "express";
 // import {response} from "express";
 
-
 export const createPost = async (req,res)=>{
     console.log(req.body);
     try{
@@ -14,12 +13,41 @@ export const createPost = async (req,res)=>{
         res.status(500).json(error);
     }
 }
-export const getAllPosts = async (req,res)=>{
-    try{
-        let posts = await Post.find({});
-        res.status(200).json(posts);
-    }catch (e) {
-        res.status(500).json(e);
+// export const getAllPosts = async (req,res)=>{
+//     const username = request.query.username;
+//     const category = request.query.category;
+//     let posts
+//     try{
+//         if (username)
+//             posts = await Post.find({username: username});
+//         else if (category)
+//             posts = await Post.find({ categories: category});
+//         // you dont have to mention querry in the route.js like you have to do in params
+//         else
+//             posts = await Post.find({});
+//
+//         res.status(200).json(posts);
+//     }catch (e) {
+//         res.status(500).json(e);
+//     }
+// }
+
+export const getAllPosts = async (request, response) => {
+    let username = request.query.username;
+    let category = request.query.category;
+    let posts;
+    try {
+        if(username)
+            posts = await Post.find({ username: username });
+        else if (category)
+            posts = await Post.find({ categories: category });
+        // you dont have to mention querry in the route.js like you have to do in params
+        else
+            posts = await Post.find({});
+
+        response.status(200).json(posts);
+    } catch (error) {
+        response.status(500).json(error)
     }
 }
 

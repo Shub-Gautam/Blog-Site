@@ -3,21 +3,24 @@ import Post from "./Post";
 import { Link } from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getAllPosts} from "../../service/api";
+import { useLocation } from "react-router-dom";
 
 const Posts = () => {
-
-    const [posts,setPosts] = useState([]);
+    // const { search } = useLocation();
+    //
+    // const [posts,setPosts] = useState([]);
     //let posts = [1,2,3,4,5,6,7,8,9];
+    const [posts, getPosts] = useState([]);
+    const { search } = useLocation();
 
-    useEffect(()=>{
-        const fetchData = async ()=>{
-            let data = await getAllPosts();
-            console.log(data);
-            //below function is used to set data in posts in const[posts,setPosts]
-             setPosts(data);
+    useEffect(() => {
+        const fetchData = async () => {
+            let data = await getAllPosts(search); // params in url
+            getPosts(data);
         }
         fetchData();
-    },[])
+    }, [search]);
+
 
     return (
         posts.map(post => (

@@ -43,7 +43,7 @@ const initialValues = {
     title: '',
     description: '',
     picture: '',
-    username: '',
+    username: 'ShubhamGautam',
     categories: 'All',
     createDate: new Date()
 }

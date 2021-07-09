@@ -1,1 +1,4 @@
 client side api.js find sol for localhost string
+
+every thing afetr the / int the url is a param and after the ? is a query in url
+

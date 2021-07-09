@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-
-
 const URL = 'http://localhost:8000';
 
 export  const createPost = async (post)=>{
@@ -11,12 +9,12 @@ export  const createPost = async (post)=>{
     }
 }
 
-export const getAllPosts = async ()=>{
-    try{
-       let response = await axios.get(`${URL}/posts`);
-       return response.data;
-    }catch(e){
-        console.log("Error while calling getAllPosts API",e);
+export const getAllPosts = async (param) => {
+    try {
+        let response = await axios.get(`${URL}/posts${param}`); // param automatically includes /?
+        return response.data;
+    } catch (error) {
+        console.log('Error while calling getPosts API ', error)
     }
 }
 

@@ -28,7 +28,11 @@ const Categories = () => {
         <Table className={classes.table}>
             <TableHead>
                 <TableRow>
-                    <TableCell>All Categories</TableCell>
+                    <TableCell>
+                        <Link to={`/`} style={{textDecoration:'none',color:'inherit'}} >
+                            All Categories
+                        </Link>
+                    </TableCell>
                 </TableRow>
             </TableHead>
 
@@ -36,7 +40,11 @@ const Categories = () => {
                 {
                     categories.map(category => (
                         <TableRow>
-                            <TableCell>{category}</TableCell>
+                            <TableCell>
+                                <Link to={`/?category=${category}`} style={{textDecoration:'none',color:'inherit'}} >
+                                    {category}
+                                </Link>
+                            </TableCell>
                         </TableRow>
                     ))
                 }
