@@ -17,7 +17,7 @@ router.delete('/delete/:id', deletePost);
 
 router.post('/file/upload', upload.single('file'), uploadImage);
 
-router.post('/file/:filename',getImage);
+router.get('/file/:filename',getImage);
 
 export default router;
 
