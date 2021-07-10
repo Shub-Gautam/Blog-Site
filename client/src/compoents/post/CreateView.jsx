@@ -51,10 +51,12 @@ const initialValues = {
 const CreateView = () =>{
     const history = useHistory();
     const classes = useStyles();
-    const url = 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80'
-    
+
     const [post, setPost] = useState(initialValues);
     const [file, setFile] = useState('');
+    const [image,setImage] = useState('');
+
+    const url = post.picture ?  post.picture : 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80'
 
     //use effect is used to do some action when a thing is changed
 
@@ -65,7 +67,9 @@ const CreateView = () =>{
                 data.append("name",file.name);
                 data.append("file",file);
 
-                await uploadFile(data);
+                const image = await uploadFile(data);
+                post.picture = image.data;
+                setImage(image.data);
             }
         }
         getImage();
