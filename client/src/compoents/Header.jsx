@@ -1,6 +1,7 @@
 
 import {AppBar , Toolbar, Typography , makeStyles, colors, Container } from "@material-ui/core"
-import { Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {useOktaAuth} from "@okta/okta-react";
 
 // mmakeStyles is used to implements CSS inside this.
 const useStyles = makeStyles({
@@ -20,9 +21,27 @@ const useStyles = makeStyles({
     }
 });
 
+
+
 //We create a JS function that defines Header  
 const Header = () => {
     const classes = useStyles();
+    const history = useHistory();
+
+
+    const login = async () => history.push('/login');
+
+    const logout = async () => oktaAuth.signOut();
+
+    const { oktaAuth, authState } = useOktaAuth();
+
+    if (!authState) return null;
+
+
+    const button = authState.isAuthenticated ?
+        <button onClick={logout}>Logout</button> :
+        <button onClick={login}>Login</button>;
+
     return(
         //we use className instead of class because class is reserved in React
         <AppBar className={classes.components} >
@@ -33,7 +52,7 @@ const Header = () => {
                 
                 <Typography>ABOUT</Typography>
                 <Typography>CONTACT</Typography>
-                <Typography>LOGIN</Typography>
+                <Typography>{button}</Typography>
             </Toolbar>
         </AppBar>
     )
