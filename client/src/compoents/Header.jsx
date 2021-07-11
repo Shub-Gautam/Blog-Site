@@ -39,8 +39,21 @@ const Header = () => {
 
 
     const button = authState.isAuthenticated ?
-        <button onClick={logout}>Logout</button> :
-        <button onClick={login}>Login</button>;
+        <button onClick={logout}
+                style={{
+                    background: "unset",
+                    border:"none",
+                    textTransform:'uppercase',
+                    fontFamily: 'Roboto',
+                    fontSize:18,
+                    cursor:'pointer'
+                }
+                }
+        >Logout</button> :
+        <button onClick={login}
+
+
+        >Login</button>;
 
     return(
         //we use className instead of class because class is reserved in React
