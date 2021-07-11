@@ -1,7 +1,7 @@
 
 import grid from "gridfs-stream";
 import mongoose from "mongoose";
-// const url = 'http://localhost:8000'
+const url = ''
 
 
 let gfs;
@@ -11,19 +11,32 @@ conn.once('open', () => {
     gfs.collection('fs');
 });
 
-export const uploadImage = (request,response) =>{
-    try{
-        if(!request.file){
+// export const uploadImage = (request,response) =>{
+//     try{
+//         if(!request.file){
+//             return response.status(404).json("File not found");
+//         }
+//         const imageURL = `${URL}/file/${request.file.filename}`
+//
+//         response.status(200).json(imageURL);
+//     }catch (e) {
+//         response.status(500).json(e);
+//     }
+//
+// }
+
+
+export const uploadImage = (request, response) => {
+        if (!request.file) {
             return response.status(404).json("File not found");
         }
-        const imageURL = `${URL}/file/${request.file.filename}`
+        const imageUrl = `${url}/file/${request.file.filename}`;
 
-        response.status(200).json(imageURL);
-    }catch (e) {
-        response.status(500).json(e);
+        response.status(200).json(imageUrl);
+
     }
 
-}
+
 export const getImage = async (request, response) => {
     try {
         const file = await gfs.files.findOne({ filename: request.params.filename });

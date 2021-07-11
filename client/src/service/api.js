@@ -43,10 +43,10 @@ export const deletePost = async (id) => {
     }
 }
 
-export const uploadFile = async (data) => {
-    console.log(data);
+export const uploadFile = async (post) => {
+    console.log(post);
     try{
-        return await axios.post(`${URL}/file/upload`,data);
+        return await axios.post(`${URL}/file/upload`,post);
     }catch (error) {
         console.log("Error while uploading the image",error);
     }
