@@ -45,6 +45,7 @@ const Header = () => {
                     border:"none",
                     textTransform:'uppercase',
                     fontFamily: 'Roboto',
+
                     fontSize:18,
                     cursor:'pointer'
                 }
