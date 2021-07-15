@@ -50,6 +50,8 @@ const Header = () => {
                     cursor:'pointer'
                 }
                 }
+
+
         >Logout</button> :
         <button onClick={login}
 
